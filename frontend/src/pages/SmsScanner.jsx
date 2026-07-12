@@ -1,8 +1,31 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
+import API from "../services/api";
 
 function SmsScanner() {
   const [message, setMessage] = useState("");
+  const analyzeSMS = async () => {
+
+  if (message.trim() === "") {
+    toast.error("Please enter an SMS first!");
+    return;
+  }
+
+  try {
+
+    const response = await API.post("/analyze-sms", {
+      message: message,
+    });
+
+    toast.success(response.data.result);
+
+  } catch (error) {
+
+    toast.error("Backend not connected!");
+
+  }
+
+  };
 
   return (
     <div className="min-h-screen bg-slate-950 text-white flex flex-col items-center justify-center px-6">
@@ -23,17 +46,10 @@ function SmsScanner() {
       />
 
       <button
-        onClick={()=>{
-        if(message==="")
-          {
-            toast.error("Please enter an SMS first!");
-            return;
-          }
-        toast.success("SMS Submitted Successfully!");
-        }}
+        onClick={analyzeSMS}
         className="mt-8 bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-xl"
-      >
-        Analyze SMS
+        >
+         Analyze SMS
       </button>
 
 
