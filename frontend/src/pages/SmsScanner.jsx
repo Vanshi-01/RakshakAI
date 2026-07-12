@@ -1,4 +1,5 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 function SmsScanner() {
   const [message, setMessage] = useState("");
@@ -22,10 +23,19 @@ function SmsScanner() {
       />
 
       <button
+        onClick={()=>{
+        if(message==="")
+          {
+            toast.error("Please enter an SMS first!");
+            return;
+          }
+        toast.success("SMS Submitted Successfully!");
+        }}
         className="mt-8 bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-xl"
       >
         Analyze SMS
       </button>
+
 
     </div>
   );
