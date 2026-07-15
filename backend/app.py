@@ -30,6 +30,9 @@ app.add_middleware(
 class SMSRequest(BaseModel):
     message: str
 
+class WebsiteRequest(BaseModel):
+    url: str
+
 
 @app.get("/")
 def home():
@@ -48,6 +51,44 @@ SMS:
 {data.message}
 
 Respond in this format:
+
+Risk: LOW / MEDIUM / HIGH
+
+Reason:
+- Point 1
+- Point 2
+- Point 3
+
+Recommendation:
+- Recommendation
+"""
+
+    response = model.generate_content(prompt)
+
+    return {
+        "result": response.text
+    }
+
+@app.post("/analyze-website")
+def analyze_website(data: WebsiteRequest):
+
+    prompt = f"""
+You are a cybersecurity expert.
+
+Analyze the following website URL.
+
+Website:
+{data.url}
+
+Check for:
+
+- Phishing indicators
+- Suspicious domain
+- Fake login possibility
+- URL tricks
+- Overall safety
+
+Respond ONLY in this format:
 
 Risk: LOW / MEDIUM / HIGH
 

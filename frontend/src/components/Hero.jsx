@@ -31,6 +31,15 @@ function Hero() {
           Analyze SMS
         </motion.button>
 
+        <button
+onClick={()=>navigate("/website")}
+className="border border-cyan-500 hover:bg-cyan-500 px-8 py-4 rounded-xl"
+>
+
+🌐 Website Scanner
+
+</button>
+
         <button className="border border-slate-600 hover:bg-slate-800 px-8 py-4 rounded-xl">
           Watch Demo
         </button>
